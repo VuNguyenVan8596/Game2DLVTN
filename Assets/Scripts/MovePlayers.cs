@@ -9,13 +9,27 @@ public class MovePlayers : MonoBehaviour {
     Animator anim;
     bool playerMoving;
     Vector2 lastMove;
-	
-	void Update () {
+    public GameObject ThanhKiem;
+
+
+    private void Awake()
+    {
+        ThanhKiem.SetActive(false);
+    }
+
+    void Update () {
 		
+
+
+
 		direction = jsMovement.InputDirection; //InputDirection can be used as per the need of your project
         playerMoving = false;
         if (direction.magnitude != 0)
         {
+
+            if (!ThanhKiem.activeSelf)
+                ThanhKiem.SetActive(true);
+
             transform.position += direction * Time.deltaTime * moveSpeed;
             playerMoving = true;
             if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
