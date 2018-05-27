@@ -7,22 +7,56 @@ public class MovePlayers : MonoBehaviour {
 	public VJHandler jsMovement;
 	private Vector3 direction;
     Animator anim;
+    bool playerMoving;
+    Vector2 lastMove;
 	
 	void Update () {
 		
 		direction = jsMovement.InputDirection; //InputDirection can be used as per the need of your project
-
-
-        Debug.Log(direction);
-
-		if(direction.magnitude != 0){
-
+        playerMoving = false;
+        if (direction.magnitude != 0)
+        {
             transform.position += direction * Time.deltaTime * moveSpeed;
-		}
+            playerMoving = true;
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            {
+                if (direction.x > 0)
+                {
+                    direction = new Vector3(1, 0, 0);
+                    lastMove = new Vector2(1, 0);
+
+                }
+                else
+                {
+                    direction = new Vector3(-1, 0, 0);
+                    lastMove = new Vector2(-1, 0);
+                }
+            }
+            if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+            {
+                if (direction.y > 0)
+                {
+                    direction = new Vector3(0, 1, 0);
+                    lastMove = new Vector2(0, 1);
+
+                }
+                else
+                {
+                    direction = new Vector3(0, -1, 0);
+                    lastMove = new Vector2(0, -1);
+                }
+            }
+
+        }
 
 
+
+
+        anim.SetBool("PlayerMoving", playerMoving);
         anim.SetFloat("MoveX", direction.x);
         anim.SetFloat("MoveY", direction.y);
+        anim.SetFloat("LastMoveX", lastMove.x);
+        anim.SetFloat("LastMoveY", lastMove.y);
     }	
 	
 	void Start(){
