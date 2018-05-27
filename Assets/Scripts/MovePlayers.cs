@@ -11,6 +11,10 @@ public class MovePlayers : MonoBehaviour {
     Vector2 lastMove;
     public GameObject ThanhKiem;
 
+    bool Attacking = false;
+    public float timeAttack;
+    private float countdownTimeAttack;
+
 
     private void Awake()
     {
@@ -63,14 +67,30 @@ public class MovePlayers : MonoBehaviour {
 
         }
 
+        if (Attacking)
+        {
+            if (countdownTimeAttack > 0)
+                countdownTimeAttack -= Time.deltaTime;
+            else
+            {
+                Attacking = false;
+                anim.SetBool("Attack", Attacking);
+            }
+                
+        }
 
 
+       
 
         anim.SetBool("PlayerMoving", playerMoving);
         anim.SetFloat("MoveX", direction.x);
         anim.SetFloat("MoveY", direction.y);
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
+
+
+
+
     }	
 	
 	void Start(){
@@ -83,4 +103,12 @@ public class MovePlayers : MonoBehaviour {
 
         anim = GetComponent<Animator>();
 	}
+
+
+    public void ButtonAttackClick()
+    {
+        Attacking = true;
+        countdownTimeAttack = timeAttack;
+        anim.SetBool("Attack", Attacking);
+    }
 }
