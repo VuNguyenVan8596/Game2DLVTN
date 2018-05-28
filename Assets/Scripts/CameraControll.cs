@@ -15,6 +15,10 @@ public class CameraControll : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
+        if ((transformTargetFollow.position.x < 0 || transformTargetFollow.position.x > 15.5f) || (transformTargetFollow.position.y < 0 || transformTargetFollow.position.y > 9.7f))
+            return;
         targetPos = new Vector3(transformTargetFollow.position.x, transformTargetFollow.position.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, targetPos, moveSpeed*Time.deltaTime);
 	}

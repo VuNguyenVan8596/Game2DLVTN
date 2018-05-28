@@ -25,7 +25,6 @@ public class MovePlayers : MonoBehaviour {
 		
 
 
-
 		direction = jsMovement.InputDirection; //InputDirection can be used as per the need of your project
         playerMoving = false;
         if (direction.magnitude != 0)
@@ -78,9 +77,6 @@ public class MovePlayers : MonoBehaviour {
             }
                 
         }
-
-
-       
 
         anim.SetBool("PlayerMoving", playerMoving);
         anim.SetFloat("MoveX", direction.x);
